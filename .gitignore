@@ -1,4 +1,4 @@
 .vscode/
 .lib/
-.src/App.class
-.bin/
+src/App.class
+bin/
