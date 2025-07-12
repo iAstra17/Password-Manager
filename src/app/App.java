@@ -20,6 +20,236 @@ public class App {
     private static ArrayList<Password> passwords = new ArrayList<>();
     private static String filePath ="data"+File.separator+"passwords.dat";
 
+    //this method is used to get and check the containsSymbols modifier from user inputs
+    public static int getCheckedContainsSymbolsFromUserInputs(String message, int containsSymbols){
+        try {
+            System.out.print(message);
+            containsSymbols = sc.nextInt();
+            sc.nextLine();
+            System.out.println();
+        } catch (InputMismatchException e){
+            System.out.println("invalid input");
+            //e.printStackTrace();
+            sc.nextLine();
+        } catch (Exception e){
+            System.out.println("error");
+            //e.printStackTrace();
+            sc.nextLine();
+        }
+        while (containsSymbols < 0 || containsSymbols > 1){
+            try {
+                System.out.print("insert a correct choice: ");
+                containsSymbols = sc.nextInt();
+                sc.nextLine();
+                System.out.println();
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                //e.printStackTrace();
+                sc.nextLine();
+            } catch (Exception e){
+                System.out.println("error");
+                //e.printStackTrace();
+                sc.nextLine();
+            }
+        }
+        return containsSymbols;
+    }
+
+    //this method is used to get and check the containsDigits modifier from user inputs
+    public static int getCheckedContainsDigitsFromUserInputs(String message, int containsDigits){
+        try {
+            System.out.print(message);
+            containsDigits = sc.nextInt();
+            sc.nextLine();
+            System.out.println();
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                //e.printStackTrace();
+                sc.nextLine();
+            } catch (Exception e){
+                System.out.println("error");
+                //e.printStackTrace();
+                sc.nextLine();
+            }
+        while (containsDigits < 0 || containsDigits > 1){
+            try {
+                System.out.print("insert a correct choice: ");
+                containsDigits = sc.nextInt();
+                sc.nextLine();
+                System.out.println();
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                //e.printStackTrace();
+                sc.nextLine();
+            } catch (Exception e){
+                System.out.println("error");
+                //e.printStackTrace();
+                sc.nextLine();
+            }
+        }
+        return containsDigits;
+    }
+
+    //this method is used to get and check the typeOfLetters modifier from user inputs
+    public static int getCheckedTypeOfLettersFromUserInputs(String message, int typeOfLetters){
+        try{
+            System.out.print(message);
+            typeOfLetters = sc.nextInt();
+            sc.nextLine();
+            System.out.println();
+        } catch (InputMismatchException e){
+            System.out.println("invalid input");
+            //e.printStackTrace();
+            sc.nextLine();
+        } catch (Exception e){
+            System.out.println("error");
+            //e.printStackTrace();
+            sc.nextLine();
+        }
+        while (typeOfLetters < 0 || typeOfLetters > 2){
+            try {
+                System.out.print("insert a correct choice: ");
+                typeOfLetters = sc.nextInt();
+                sc.nextLine();
+                System.out.println();
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                //e.printStackTrace();
+                sc.nextLine();
+            } catch (Exception e){
+                System.out.println("error");
+                //e.printStackTrace();
+                sc.nextLine();
+            }
+        }
+        return typeOfLetters;
+    }
+
+    //this method is used to get and check the length from user inputs
+    public static int getCheckedLengthFromUserInputs(String message, int length){
+        try {
+            System.out.print(message);
+            length = sc.nextInt();
+            sc.nextLine();
+            System.out.println();
+        } catch (InputMismatchException e){
+            System.out.println("invalid input");
+            //e.printStackTrace();
+            sc.nextLine();
+        } catch (Exception e){
+            System.out.println("error");
+            //e.printStackTrace();
+            sc.nextLine();
+        }
+        while(length < 4){
+            try {
+                System.out.print("insert a correct length of the password: ");
+                length = sc.nextInt();
+                sc.nextLine();
+                System.out.println();
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                //e.printStackTrace();
+                sc.nextLine();
+            } catch (Exception e){
+                System.out.println("error");
+                //e.printStackTrace();
+                sc.nextLine();
+            }
+        }
+        return length;
+    }
+
+    //this method is used to get and check the platform from user inputs
+    public static String getCheckedPlatformFromUserInputs(String message, String platform){
+        try {
+            System.out.print(message);
+            platform = sc.nextLine();
+            System.out.println();
+        } catch (InputMismatchException e){
+            System.out.println("invalid input");
+            //e.printStackTrace();
+            sc.nextLine();
+        } catch (Exception e){
+            System.out.println("error");
+            //e.printStackTrace();
+            sc.nextLine();
+        }
+        while(platform.equals("") || platform.equals(" ")){
+            try {
+                System.out.print("insert a correct name of the platform: ");
+                platform = sc.nextLine();
+                System.out.println();
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                //e.printStackTrace();
+                sc.nextLine();
+            } catch (Exception e){
+                System.out.println("error");
+                //e.printStackTrace();
+                sc.nextLine();
+            }
+        }
+        return platform;
+    }
+
+    //this method is used to get and check the password from user inputs
+    public static String getCheckedPasswordFromUserInputs(String message, String pwd){
+        try {
+            System.out.print(message);
+            pwd = sc.nextLine();
+            System.out.println();
+        } catch (InputMismatchException e){
+            System.out.println("invalid input");
+            //e.printStackTrace();
+            sc.nextLine();
+        } catch (Exception e){
+            System.out.println("error");
+            //e.printStackTrace();
+            sc.nextLine();
+        }
+        while(pwd.indexOf(" ")!=-1 || pwd.length() < 4){
+            if (pwd.indexOf(" ")!=-1){
+                try {
+                    System.out.print("insert a correct password without spaces: ");
+                    pwd = sc.nextLine();
+                    System.out.println();
+                } catch (InputMismatchException e){
+                    System.out.println("invalid input");
+                    //e.printStackTrace();
+                    sc.nextLine();
+                } catch (Exception e){
+                    System.out.println("error");
+                    //e.printStackTrace();
+                    sc.nextLine();
+                }
+            }else {
+                try {
+                    System.out.print("insert a password that is at least 4 characters long: ");
+                    pwd = sc.nextLine();
+                    System.out.println();
+                } catch (InputMismatchException e){
+                    System.out.println("invalid input");
+                    //e.printStackTrace();
+                    sc.nextLine();
+                } catch (Exception e){
+                    System.out.println("error");
+                    //e.printStackTrace();
+                    sc.nextLine();
+                }
+            }
+        }
+        return pwd;
+    }
+
+    public static void clearFile(){
+        try (FileOutputStream _ = new FileOutputStream(filePath)){}
+        catch (IOException e){
+            System.out.println("error clearing file");
+            // e.printStackTrace();
+        }
+    }
+
     public static void printFileContent(){
         File file = new File(filePath);
         if (file.length()==0){
@@ -76,7 +306,7 @@ public class App {
     }
 
     //this method is used to generate a password randomized based on given parameters
-    public static Password generateRandomPassword(String platform, int length, int typeOfLetters, int containsDigits, int containsSymbols){
+    public static String generateRandomPassword(int length, int typeOfLetters, int containsDigits, int containsSymbols){
         String pwd = "";
         switch (typeOfLetters){
             case 0:
@@ -122,225 +352,50 @@ public class App {
                 }
                 break;
         }
-        return new Password(platform, 1, length, typeOfLetters, containsDigits, containsSymbols, pwd);
+        return pwd;
     };
 
-    public static boolean platformAlreadyExist(String platform){
+    //this method is used to get the index of a given platform as a parameter
+    public static int getPlatformIndex(String platform){
+        int i = -1;
         for(Password password : passwords){
+            i++;
             if(password.getPlatform().equalsIgnoreCase(platform)){
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 
-    public static Password generatePassword(){
-        String platform = "";
-        int length = 0;
-        int typeOfLetters = -1;
-        int containsDigits = -1;
-        int containsSymbols = -1;
-
-        try {
-            System.out.print("insert the name of the platform which your password will be associated with: ");
-            platform = sc.nextLine();
-            System.out.println();
-        } catch (InputMismatchException e){
-            System.out.println("invalid input");
-            //e.printStackTrace();
-            sc.nextLine();
-        } catch (Exception e){
-            System.out.println("Error");
-            //e.printStackTrace();
-            sc.nextLine();
-        }
-        while(platform.equals("") || platform.equals(" ")){
-            try {
-                System.out.print("insert a correct name of the platform: ");
-                platform = sc.nextLine();
-                System.out.println();
-            } catch (InputMismatchException e){
-                System.out.println("invalid input");
-                //e.printStackTrace();
-                sc.nextLine();
-            } catch (Exception e){
-                System.out.println("Error");
-                //e.printStackTrace();
-                sc.nextLine();
-            }
-        }
-
-        if(platformAlreadyExist(platform)){
-            System.out.println("there is a password already associated for this platform! ");
-            return null;
-        }
-
-        try {
-            System.out.print("insert the length of the password (the minimum length allowed is 4): ");
-            length = sc.nextInt();
-            sc.nextLine();
-            System.out.println();
-        } catch (InputMismatchException e){
-            System.out.println("invalid input");
-            //e.printStackTrace();
-            sc.nextLine();
-        } catch (Exception e){
-            System.out.println("Error");
-            //e.printStackTrace();
-            sc.nextLine();
-        }
-        while(length < 4){
-            try {
-                System.out.print("insert a correct length of the password: ");
-                length = sc.nextInt();
-                sc.nextLine();
-                System.out.println();
-            } catch (InputMismatchException e){
-                System.out.println("invalid input");
-                //e.printStackTrace();
-                sc.nextLine();
-            } catch (Exception e){
-                System.out.println("Error");
-                //e.printStackTrace();
-                sc.nextLine();
-            }
-        }
-
-        try{
-            System.out.print("""
-                Do you want to use :
-                0 - only lowercase letters
-                1 - only uppercase letters
-                2 - both
-                choice :""");
-            typeOfLetters = sc.nextInt();
-            sc.nextLine();
-            System.out.println();
-        } catch (InputMismatchException e){
-            System.out.println("invalid input");
-            //e.printStackTrace();
-            sc.nextLine();
-        } catch (Exception e){
-            System.out.println("Error");
-            //e.printStackTrace();
-            sc.nextLine();
-        }
-        while (typeOfLetters < 0 || typeOfLetters > 2){
-            try {
-                System.out.print("insert a correct choice: ");
-                typeOfLetters = sc.nextInt();
-                sc.nextLine();
-                System.out.println();
-            } catch (InputMismatchException e){
-                System.out.println("invalid input");
-                //e.printStackTrace();
-                sc.nextLine();
-            } catch (Exception e){
-                System.out.println("Error");
-                //e.printStackTrace();
-                sc.nextLine();
-            }
-        }
-
-        try {
-            System.out.print("""
-                Do you want to use digits :
-                0 - no
-                1 - yes
-                choice :""");
-            containsDigits = sc.nextInt();
-            sc.nextLine();
-            System.out.println();
-            } catch (InputMismatchException e){
-                System.out.println("invalid input");
-                //e.printStackTrace();
-                sc.nextLine();
-            } catch (Exception e){
-                System.out.println("Error");
-                //e.printStackTrace();
-                sc.nextLine();
-            }
-        while (containsDigits < 0 || containsDigits > 1){
-            try {
-                System.out.print("insert a correct choice: ");
-                containsDigits = sc.nextInt();
-                sc.nextLine();
-                System.out.println();
-            } catch (InputMismatchException e){
-                System.out.println("invalid input");
-                //e.printStackTrace();
-                sc.nextLine();
-            } catch (Exception e){
-                System.out.println("Error");
-                //e.printStackTrace();
-                sc.nextLine();
-            }
-        }
-
-        try {
-            System.out.print("""
-                Do you want to use symbols :
-                0 - no
-                1 - yes
-                choice :""");
-            containsSymbols = sc.nextInt();
-            sc.nextLine();
-            System.out.println();
-        } catch (InputMismatchException e){
-            System.out.println("invalid input");
-            //e.printStackTrace();
-            sc.nextLine();
-        } catch (Exception e){
-            System.out.println("Error");
-            //e.printStackTrace();
-            sc.nextLine();
-        }
-        while (containsSymbols < 0 || containsSymbols > 1){
-            try {
-                System.out.print("insert a correct choice: ");
-                containsSymbols = sc.nextInt();
-                sc.nextLine();
-                System.out.println();
-            } catch (InputMismatchException e){
-                System.out.println("invalid input");
-                //e.printStackTrace();
-                sc.nextLine();
-            } catch (Exception e){
-                System.out.println("Error");
-                //e.printStackTrace();
-                sc.nextLine();
-            }
-        }
-    
-        return generateRandomPassword(platform, length, typeOfLetters, containsDigits, containsSymbols);
-    }
-
+    //this method is used to get the containsSymbols modifier for an inserted password by user inputs
     public static int getContainsSymbols(String pwd){
         int containsSymbols = 0;
-        int i = -1;
+        int i = 0;
         while(i < pwd.length()){
-            i++;
             int ascii = (int)pwd.charAt(i);
             if (!(ascii > 96 && ascii < 123) && !(ascii > 64 && ascii < 91) && !(ascii > 47 && ascii < 58)){
                 return 1;
             }
+            i++;
         }
         return containsSymbols;
     }
 
+    //this method is used to get the containsDigits modifier for an inserted password by user inputs
     public static int getContainsDigits(String pwd){
         int containsDigits = 0;
-        int i = -1;
+        int i = 0;
         while(i < pwd.length()){
-            i++;
             int ascii = (int)pwd.charAt(i);
             if (ascii > 47 && ascii < 58){
                 return 1;
             }
+            i++;
         }
         return containsDigits;
     }
 
+    //this method is used to get the typeOfLetters modifier for an inserted password by user inputs
     public static int getTypeOfLetters(String pwd){
         int typeOfLetters = -1;
         boolean test1 = false;
@@ -363,92 +418,61 @@ public class App {
         return typeOfLetters;
     }
 
-    public static void editPassword(){}
+    public static void editPassword(){
+        String platform = "";
+        String message = "insert the name of the platform to edit it's password: ";
+        platform = getCheckedPlatformFromUserInputs(message, platform);
+        int platformIndex = getPlatformIndex(platform);
+        if(platformIndex == -1){
+            System.out.println("there is no such platform !");
+            System.out.println();
+            return;
+        }
+        passwords.remove(platformIndex);
+        String pwd = "";
+        message = "insert the new password (must be at least 4 characters long and must not contains a space): ";
+        pwd = getCheckedPasswordFromUserInputs(message, pwd);
+        int typeOfLetters = getTypeOfLetters(pwd);
+        int containsDigits = getContainsDigits(pwd);
+        int containsSymbols = getContainsSymbols(pwd);
+        Password password = new Password(platform, 0, pwd.length(), typeOfLetters, containsDigits, containsSymbols, pwd);
+        passwords.add(password);
+        fillFileFromList();
+        System.out.println("successfully edited the password");
+        System.out.println();
+    }
 
-    public static void removePasswordFromFile(){}
+    public static void removePasswordFromFile(){
+        String platform = "";
+        String message = "insert the name of the platform to delete with it's password: ";
+        platform = getCheckedPlatformFromUserInputs(message, platform);
+        int platformIndex = getPlatformIndex(platform);
+        if(platformIndex == -1){
+            System.out.println("there is no such platform !");
+            System.out.println();
+            return;
+        }
+        passwords.remove(platformIndex);
+        if(!passwords.isEmpty()){
+            fillFileFromList();
+        } else {
+            clearFile();
+        }
+        System.out.println("successfully removed the password");
+        System.out.println();
+    }
 
     public static void saveNewPassword(){
         String platform = "";
-        String pwd = "";
-
-        try {
-            System.out.print("insert the name of the platform which your password will be associated with: ");
-            platform = sc.nextLine();
-            System.out.println();
-        } catch (InputMismatchException e){
-            System.out.println("invalid input");
-            //e.printStackTrace();
-            sc.nextLine();
-        } catch (Exception e){
-            System.out.println("Error");
-            //e.printStackTrace();
-            sc.nextLine();
-        }
-        while(platform.equals("") || platform.equals(" ")){
-            try {
-                System.out.print("insert a correct name of the platform: ");
-                platform = sc.nextLine();
-                System.out.println();
-            } catch (InputMismatchException e){
-                System.out.println("invalid input");
-                //e.printStackTrace();
-                sc.nextLine();
-            } catch (Exception e){
-                System.out.println("Error");
-                //e.printStackTrace();
-                sc.nextLine();
-            }
-        }
-
-        if(platformAlreadyExist(platform)){
+        String message = "insert the name of a platform to save with your password: ";
+        platform = getCheckedPlatformFromUserInputs(message, platform);
+        if(getPlatformIndex(platform)!=-1){
             System.out.println("there is a password already associated for this platform! ");
             return;
         }
-
-        try {
-            System.out.print("insert the password to save (must be at least 4 characters long and must not contains a space): ");
-            pwd = sc.nextLine();
-            System.out.println();
-        } catch (InputMismatchException e){
-            System.out.println("invalid input");
-            //e.printStackTrace();
-            sc.nextLine();
-        } catch (Exception e){
-            System.out.println("Error");
-            //e.printStackTrace();
-            sc.nextLine();
-        }
-        while(pwd.indexOf(" ")!=-1 || pwd.length() < 4){
-            if (pwd.indexOf(" ")!=-1){
-                try {
-                    System.out.print("insert a correct password without spaces: ");
-                    pwd = sc.nextLine();
-                    System.out.println();
-                } catch (InputMismatchException e){
-                    System.out.println("invalid input");
-                    //e.printStackTrace();
-                    sc.nextLine();
-                } catch (Exception e){
-                    System.out.println("Error");
-                    //e.printStackTrace();
-                    sc.nextLine();
-                }
-            }else {
-                try {
-                    System.out.print("insert a password that is at least 4 characters long: ");
-                    pwd = sc.nextLine();
-                    System.out.println();
-                } catch (InputMismatchException e){
-                    System.out.println("invalid input");
-                    //e.printStackTrace();
-                    sc.nextLine();
-                } catch (Exception e){
-                    System.out.println("Error");
-                    //e.printStackTrace();
-                    sc.nextLine();
-                }
-            }
-        }
+        String pwd = "";
+        message = "insert the password to save (must be at least 4 characters long and must not contains a space): ";
+        pwd = getCheckedPasswordFromUserInputs(message, pwd);
         int typeOfLetters = getTypeOfLetters(pwd);
         int containsDigits = getContainsDigits(pwd);
         int containsSymbols = getContainsSymbols(pwd);
@@ -459,19 +483,78 @@ public class App {
     };
 
     public static void generateNewPasswordWithoutSave(){
-        Password password = generatePassword();
+        int length = 0;
+        String message = "insert the length of the password (the minimum length allowed is 4): ";
+        length = getCheckedLengthFromUserInputs(message, length);
+        int typeOfLetters = -1;
+        message = """
+                Do you want to use :
+                0 - only lowercase letters
+                1 - only uppercase letters
+                2 - both
+                choice : """;
+        typeOfLetters = getCheckedTypeOfLettersFromUserInputs(message, typeOfLetters);
+        int containsDigits = -1;
+        message = """
+                Do you want to use digits :
+                0 - no
+                1 - yes
+                choice : """;
+        containsDigits = getCheckedContainsDigitsFromUserInputs(message, containsDigits);
+        int containsSymbols = -1;
+        message = """
+                Do you want to use symbols :
+                0 - no
+                1 - yes
+                choice : """;
+        containsSymbols = getCheckedContainsSymbolsFromUserInputs(message, containsSymbols);
+        
+        String pwd = generateRandomPassword(length, typeOfLetters, containsDigits, containsSymbols);
         System.out.println("password generated successfully");
         System.out.println();
-        System.out.println("your password is : "+ password.getPassword());
+        System.out.println("your password is : "+ pwd);
         System.out.println();
     };
 
     public static void generateNewPasswordAndSave(){
-        Password password = generatePassword();
-        if (password == null) return;
+        String platform = "";
+        String message = "insert the name of a platform to associate with your password: ";
+        platform = getCheckedPlatformFromUserInputs(message, platform);
+        if(getPlatformIndex(platform)!=-1){
+            System.out.println("there is a password already associated for this platform! ");
+            return;
+        }
+        int length = 0;
+        message = "insert the length of the password (the minimum length allowed is 4): ";
+        length = getCheckedLengthFromUserInputs(message, length);
+        int typeOfLetters = -1;
+        message = """
+                Do you want to use :
+                0 - only lowercase letters
+                1 - only uppercase letters
+                2 - both
+                choice : """;
+        typeOfLetters = getCheckedTypeOfLettersFromUserInputs(message, typeOfLetters);
+        int containsDigits = -1;
+        message = """
+                Do you want to use digits :
+                0 - no
+                1 - yes
+                choice : """;
+        containsDigits = getCheckedContainsDigitsFromUserInputs(message, containsDigits);
+        int containsSymbols = -1;
+        message = """
+                Do you want to use symbols :
+                0 - no
+                1 - yes
+                choice : """;
+        containsSymbols = getCheckedContainsSymbolsFromUserInputs(message, containsSymbols);
+        
+        String pwd = generateRandomPassword(length, typeOfLetters, containsDigits, containsSymbols);
+        Password password = new Password(platform, 1, length, typeOfLetters, containsDigits, containsSymbols, pwd);
         System.out.println("password generated successfully");
         System.out.println();
-        System.out.println("your password is : "+ password.getPassword());
+        System.out.println("your password is : "+ pwd);
         System.out.println();
         passwords.add(password);
         fillFileFromList();
@@ -493,8 +576,8 @@ public class App {
 
         int choice = 0;
         do{
-            System.out.println();
-            System.out.println(passwords);
+            // System.out.println();
+            // System.out.println(passwords);
             System.out.println();
             System.out.println("""
                 ==========================================
@@ -542,7 +625,7 @@ public class App {
                 System.out.println("Error");
                 //e.printStackTrace();
             }
-        } while(choice != 5);
+        } while(choice != 7);
         
         sc.close();
     }
