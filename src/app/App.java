@@ -452,6 +452,22 @@ public class App {
             System.out.println();
             return;
         }
+        try {
+            System.out.println("Are you sure you want to remove the password : "+ passwords.get(platformIndex).getPassword() + " of the platform : "+ platform);
+            System.out.print("""
+                    0 - no
+                    1 - yes
+                    choice : """);
+            int respond = sc.nextInt();
+            sc.nextLine();
+            if(respond == 0)return;
+        } catch (InputMismatchException e){
+            System.out.println("invalid input");
+            // e.printStackTrace();
+        } catch (Exception e){
+            System.out.println("error");
+            // e.printStackTrace();
+        }
         passwords.remove(platformIndex);
         if(!passwords.isEmpty()){
             fillFileFromList();
@@ -549,13 +565,33 @@ public class App {
                 1 - yes
                 choice : """;
         containsSymbols = getCheckedContainsSymbolsFromUserInputs(message, containsSymbols);
-        
-        String pwd = generateRandomPassword(length, typeOfLetters, containsDigits, containsSymbols);
+        String pwd;
+        int respond = 1;
+        do {
+            pwd = generateRandomPassword(length, typeOfLetters, containsDigits, containsSymbols);
+            System.out.println("password generated successfully");
+            System.out.println();
+            System.out.println("your password is : "+ pwd);
+            System.out.println();
+            try {
+                System.out.print("""
+                    do you want to change the password
+                    0 - no
+                    1 - yes
+                    choice :""");
+                respond = sc.nextInt();
+                sc.nextLine();
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                // e.printStackTrace();
+                return;
+            } catch (Exception e) {
+                System.out.println("error");
+                // e.printStackTrace();
+                return;
+            }
+        } while (respond == 1);
         Password password = new Password(platform, 1, length, typeOfLetters, containsDigits, containsSymbols, pwd);
-        System.out.println("password generated successfully");
-        System.out.println();
-        System.out.println("your password is : "+ pwd);
-        System.out.println();
         passwords.add(password);
         fillFileFromList();
         File file = new File(filePath);
