@@ -18,7 +18,7 @@ import java.io.FileNotFoundException;
 public class App {
     private static Scanner sc = new Scanner(System.in);
     private static ArrayList<Password> passwords = new ArrayList<>();
-    private static String filePath ="data"+File.separator+"passwords.dat";
+    private static final String filePath ="data"+File.separator+"passwords.dat";
 
     //this method is used to get and check the containsSymbols modifier from user inputs
     public static int getCheckedContainsSymbolsFromUserInputs(String message, int containsSymbols){
@@ -242,6 +242,7 @@ public class App {
         return pwd;
     }
 
+    //this method is used to clear all the content of the file
     public static void clearFile(){
         try (FileOutputStream _ = new FileOutputStream(filePath)){}
         catch (IOException e){
@@ -250,6 +251,7 @@ public class App {
         }
     }
 
+    //this method is used to print all the content of the file
     public static void printFileContent(){
         File file = new File(filePath);
         if (file.length()==0){
@@ -355,18 +357,81 @@ public class App {
         return pwd;
     };
 
-    //this method is used to get the index of a given platform as a parameter
-    public static int getPlatformIndex(String platform){
+    //this method is used to get an ArrayList of passwords associated to a given platform
+    public static ArrayList<Password> getPlatformPasswords(String platform){
+        ArrayList<Password> pwds = new ArrayList<>(); 
+        for(Password password : passwords){
+            if(password.getPlatform().equalsIgnoreCase(platform)){
+                pwds.add(password);
+            }
+        }
+        return pwds;
+    }
+
+    //this method is used to get the index of a password from a given identifier
+    public static int getPasswordIndexFromId(int id){
         int i = -1;
         for(Password password : passwords){
             i++;
-            if(password.getPlatform().equalsIgnoreCase(platform)){
+            if (password.getId() == id){
                 return i;
             }
         }
-        return -1;
+        return i;
     }
 
+    //this method is used to get the index of a password from a given platform and user inputs
+    public static int getPasswordIndexFromPlatform(String platform, String message){
+        ArrayList<Password> pwds = getPlatformPasswords(platform);
+        if(pwds.isEmpty()){
+            System.out.println("there is no such platform !");
+            System.out.println();
+            return -1;
+        }
+        int passwordIndex;
+        if(pwds.size()==1){
+            passwordIndex = getPasswordIndexFromId(pwds.get(0).getId());
+        } else {
+            System.out.println("There is more than one platform with this name!");
+            System.out.println("which password do you want to "+message);
+            int i = -1;
+            int choice = -1;
+            for(Password pwd : pwds){
+                i++;
+                System.out.println(i+" - "+pwd.getPassword());
+            }
+            System.out.print("choice :");
+            try{
+                choice = sc.nextInt();
+                sc.nextLine();
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                // e.printStackTrace();
+                sc.nextLine();
+            } catch (Exception e){
+                System.out.println("error");
+                // e.printStackTrace();
+                sc.nextLine();
+            }
+            while (choice < 0 || choice > i){
+                try{
+                    System.out.print("insert a correct choice: ");
+                    choice = sc.nextInt();
+                    sc.nextLine();
+                } catch (InputMismatchException e){
+                    System.out.println("invalid input");
+                    // e.printStackTrace();
+                    sc.nextLine();
+                } catch (Exception e){
+                    System.out.println("error");
+                    // e.printStackTrace();
+                    sc.nextLine();
+                }
+            }
+            passwordIndex = getPasswordIndexFromId(pwds.get(choice).getId());
+        }
+        return passwordIndex;
+    }
     //this method is used to get the containsSymbols modifier for an inserted password by user inputs
     public static int getContainsSymbols(String pwd){
         int containsSymbols = 0;
@@ -418,25 +483,57 @@ public class App {
         return typeOfLetters;
     }
 
+    //this method is used to check if the user wants to add a password for a platform that already has a password
+    public static boolean checkToAddPasswordForExistingPlatform(String platform){
+            System.out.println("there is a password already associated for this platform! ");
+            int choice = 0;
+            try{
+                System.out.println("do you want to create an other one");
+                System.out.print("""
+                            0 - no
+                            1 - yes
+                            choice : """);
+                choice = sc.nextInt();
+                sc.nextLine();
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                // e.printStackTrace();
+                sc.nextLine();
+            } catch (Exception e){
+                System.out.println("error");
+                // e.printStackTrace();
+                sc.nextLine();
+            }
+            while(choice < 0 || choice > 1){
+                try{
+                    System.out.print("insert a correct choice: ");
+                    choice = sc.nextInt();
+                    sc.nextLine();
+                } catch (InputMismatchException e){
+                    System.out.println("invalid input");
+                    // e.printStackTrace();
+                    sc.nextLine();
+                } catch (Exception e){
+                    System.out.println("error");
+                    // e.printStackTrace();
+                    sc.nextLine();
+                }
+            }
+            if (choice == 0) return false;
+            return true;
+        }
+
     public static void editPassword(){
         String platform = "";
         String message = "insert the name of the platform to edit it's password: ";
         platform = getCheckedPlatformFromUserInputs(message, platform);
-        int platformIndex = getPlatformIndex(platform);
-        if(platformIndex == -1){
-            System.out.println("there is no such platform !");
-            System.out.println();
-            return;
-        }
-        passwords.remove(platformIndex);
+        message = "edit";
+        int passwordIndex = getPasswordIndexFromPlatform(platform, message);
+        if (passwordIndex == -1)return;
         String pwd = "";
         message = "insert the new password (must be at least 4 characters long and must not contains a space): ";
         pwd = getCheckedPasswordFromUserInputs(message, pwd);
-        int typeOfLetters = getTypeOfLetters(pwd);
-        int containsDigits = getContainsDigits(pwd);
-        int containsSymbols = getContainsSymbols(pwd);
-        Password password = new Password(platform, 0, pwd.length(), typeOfLetters, containsDigits, containsSymbols, pwd);
-        passwords.add(password);
+        passwords.get(passwordIndex).setPassword(pwd);
         fillFileFromList();
         System.out.println("successfully edited the password");
         System.out.println();
@@ -446,29 +543,45 @@ public class App {
         String platform = "";
         String message = "insert the name of the platform to delete with it's password: ";
         platform = getCheckedPlatformFromUserInputs(message, platform);
-        int platformIndex = getPlatformIndex(platform);
-        if(platformIndex == -1){
-            System.out.println("there is no such platform !");
-            System.out.println();
-            return;
-        }
+        message = "remove";
+        int passwordIndex = getPasswordIndexFromPlatform(platform, message);
+        if (passwordIndex == -1)return;
+        int respond = -1;
         try {
-            System.out.println("Are you sure you want to remove the password : "+ passwords.get(platformIndex).getPassword() + " of the platform : "+ platform);
+            System.out.println("Are you sure you want to remove the password : "+ passwords.get(passwordIndex).getPassword() + " of the platform : "+ platform);
             System.out.print("""
                     0 - no
                     1 - yes
                     choice : """);
-            int respond = sc.nextInt();
+            respond = sc.nextInt();
             sc.nextLine();
             if(respond == 0)return;
         } catch (InputMismatchException e){
             System.out.println("invalid input");
             // e.printStackTrace();
+            sc.nextLine();
         } catch (Exception e){
             System.out.println("error");
             // e.printStackTrace();
+            sc.nextLine();
         }
-        passwords.remove(platformIndex);
+        while (respond < 0 || respond > 1){
+            try {
+                System.out.print("insert a correct choice: ");
+                respond = sc.nextInt();
+                sc.nextLine();
+                if(respond == 0)return;
+            } catch (InputMismatchException e){
+                System.out.println("invalid input");
+                // e.printStackTrace();
+                sc.nextLine();
+            } catch (Exception e){
+                System.out.println("error");
+                // e.printStackTrace();
+                sc.nextLine();
+            }
+        }
+        passwords.remove(passwordIndex);
         if(!passwords.isEmpty()){
             fillFileFromList();
         } else {
@@ -482,10 +595,7 @@ public class App {
         String platform = "";
         String message = "insert the name of a platform to save with your password: ";
         platform = getCheckedPlatformFromUserInputs(message, platform);
-        if(getPlatformIndex(platform)!=-1){
-            System.out.println("there is a password already associated for this platform! ");
-            return;
-        }
+        if(!getPlatformPasswords(platform).isEmpty()) if(!checkToAddPasswordForExistingPlatform(platform)) return;
         String pwd = "";
         message = "insert the password to save (must be at least 4 characters long and must not contains a space): ";
         pwd = getCheckedPasswordFromUserInputs(message, pwd);
@@ -536,10 +646,7 @@ public class App {
         String platform = "";
         String message = "insert the name of a platform to associate with your password: ";
         platform = getCheckedPlatformFromUserInputs(message, platform);
-        if(getPlatformIndex(platform)!=-1){
-            System.out.println("there is a password already associated for this platform! ");
-            return;
-        }
+        if(!getPlatformPasswords(platform).isEmpty()) if(!checkToAddPasswordForExistingPlatform(platform)) return;
         int length = 0;
         message = "insert the length of the password (the minimum length allowed is 4): ";
         length = getCheckedLengthFromUserInputs(message, length);
@@ -566,7 +673,7 @@ public class App {
                 choice : """;
         containsSymbols = getCheckedContainsSymbolsFromUserInputs(message, containsSymbols);
         String pwd;
-        int respond = 1;
+        int respond = -1;
         do {
             pwd = generateRandomPassword(length, typeOfLetters, containsDigits, containsSymbols);
             System.out.println("password generated successfully");
@@ -584,11 +691,26 @@ public class App {
             } catch (InputMismatchException e){
                 System.out.println("invalid input");
                 // e.printStackTrace();
-                return;
+                sc.nextLine();
             } catch (Exception e) {
                 System.out.println("error");
                 // e.printStackTrace();
-                return;
+                sc.nextLine();
+            }
+            while (respond < 0 || respond > 1){
+                try {
+                    System.out.print("insert a correct choice: ");
+                    respond = sc.nextInt();
+                    sc.nextLine();
+                } catch (InputMismatchException e){
+                    System.out.println("invalid input");
+                    // e.printStackTrace();
+                    sc.nextLine();
+                } catch (Exception e) {
+                    System.out.println("error");
+                    // e.printStackTrace();
+                    sc.nextLine();
+                }
             }
         } while (respond == 1);
         Password password = new Password(platform, 1, length, typeOfLetters, containsDigits, containsSymbols, pwd);
@@ -596,7 +718,7 @@ public class App {
         fillFileFromList();
         File file = new File(filePath);
         if (file.length()!=0){
-            System.out.println("Successfully added password to file");
+            System.out.println("Successfully saved the password");
             System.out.println();
         }
         file = null;
